@@ -5,11 +5,11 @@ import java.util.List;
 
 public class StudentRepository {
 	private List<StudentInformation> dataBank;
-	private FileReader fileReader;
+	private FileParse fileReader;
 
 	public StudentRepository() {
 		dataBank = new ArrayList<StudentInformation>();
-		fileReader = new FileReader();
+		fileReader = new FileParse();
 	}
 
 	public void addData(InputObject object) {

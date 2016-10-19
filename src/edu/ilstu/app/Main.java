@@ -1,5 +1,7 @@
 package edu.ilstu.app;
 
+import edu.ilstu.app.InputAdapter;
+
 public class Main {
 	public static void main(String[] args) {
 		InputAdapter inputAdapter = new InputAdapter();
