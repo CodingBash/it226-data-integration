@@ -34,12 +34,12 @@ public class InputAdapter {
 		return studentIdResponse;
 	}
 
-	// TODO: test none
 	public InputObject getGradeSelectRequest() {
 		InputObject inputObject = new InputObject();
 		String semester = getUserResponse("Enter semester: ");
 		String year = getUserResponse("Enter year: ");
 		String course = getUserResponse("Enter course: ");
+		
 		if (!semester.toLowerCase().trim().equals("none")) {
 			inputObject.setSemester(semester);
 		}
@@ -53,7 +53,6 @@ public class InputAdapter {
 	}
 
 	private String getUserResponse(String message) {
-		// TODO: Add try-catch to handle bad input.
 		@SuppressWarnings("resource")
 		Scanner scanner = new Scanner(System.in);
 		System.out.print(message);

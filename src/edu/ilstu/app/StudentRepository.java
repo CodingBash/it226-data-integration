@@ -16,6 +16,7 @@ public class StudentRepository {
 
 	public void addData(InputObject object) {
 		List<StudentInformation> retrievedData = fileParse.readData(object);
+		System.out.println("Data Size: " + retrievedData.size());
 		dataBank.addAll(retrievedData);
 	}
 
@@ -29,7 +30,7 @@ public class StudentRepository {
 		return response;
 	}
 
-	public Map<String, Integer> gradeSelect(InputObject inputObject) {
+	public int[] gradeSelect(InputObject inputObject) {
 		Map<String, Integer> gradeCount = new HashMap<String, Integer>();
 		List<StudentInformation> result = dataBank;
 		if (inputObject.getSemester() != null) {
@@ -65,7 +66,15 @@ public class StudentRepository {
 		gradeCount.put("C", cCount);
 		gradeCount.put("D", dCount);
 		gradeCount.put("F", fCount);
-		return gradeCount;
+		
+		int[] array = new int[5];
+		array[0] = gradeCount.get("A");
+		array[1] = gradeCount.get("B");
+		array[2] = gradeCount.get("C");
+		array[3] = gradeCount.get("D");
+		array[4] = gradeCount.get("F");
+		
+		return array;
 	}
 
 	private List<StudentInformation> getSemesterData(List<StudentInformation> data, String semester) {

@@ -90,7 +90,6 @@ public class FileParse {
 						break;
 					case FULL_NAME:
 						String fullName = studentData.get(row2).get(col);
-						System.out.println(fullName);
 						int commaIndex = fullName.indexOf(",");
 						information.setFirstName(fullName.substring(0, commaIndex));
 						information.setLastName(fullName.substring(commaIndex + 2));
@@ -116,8 +115,8 @@ public class FileParse {
 				result.add(information);
 			}
 
-		} catch (IOException e) {
-			e.printStackTrace();
+		} catch (Exception e) {
+			System.err.println("BAD FILENAME");
 		} finally {
 			try {
 				if (buff != null)

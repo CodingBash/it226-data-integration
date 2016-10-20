@@ -1,5 +1,7 @@
 package edu.ilstu.app;
 
+import java.util.Arrays;
+
 import edu.ilstu.app.InputAdapter;
 
 public class Main {
@@ -15,11 +17,17 @@ public class Main {
 				repository.addData(inputAdapter.addDataObject());
 				break;
 			case SAVE_DATA:
-				outputAdapter.exportData(repository.getStudentInformation(inputAdapter.getStudentId()), inputAdapter.getFileName());
+				outputAdapter.exportData(repository.getStudentInformation(inputAdapter.getStudentId()),
+						inputAdapter.getFileName());
 				break;
 			case GRADE_SELECT:
-				System.out
-						.println("Number of students: " + repository.gradeSelect(inputAdapter.getGradeSelectRequest()));
+				InputObject inputObject = inputAdapter.getGradeSelectRequest();
+				if (inputObject.getCourse() == null
+						&& inputObject.getYear() == null
+						&& inputObject.getSemester() == null) {
+					break;
+				}
+				System.out.println("Number of students: " + Arrays.toString(repository.gradeSelect(inputObject)));
 				break;
 			case EXIT:
 				running = false;
