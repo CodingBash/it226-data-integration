@@ -1,19 +1,21 @@
 package edu.ilstu.app;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class StudentRepository {
 	private List<StudentInformation> dataBank;
-	private FileParse fileReader;
+	private FileParse fileParse;
 
 	public StudentRepository() {
 		dataBank = new ArrayList<StudentInformation>();
-		fileReader = new FileParse();
+		fileParse = new FileParse();
 	}
 
 	public void addData(InputObject object) {
-		List<StudentInformation> retrievedData = fileReader.readData(object);
+		List<StudentInformation> retrievedData = fileParse.readData(object);
 		dataBank.addAll(retrievedData);
 	}
 
@@ -27,14 +29,45 @@ public class StudentRepository {
 		return response;
 	}
 
-	public List<StudentInformation> gradeSelect(InputObject inputObject){
+	public Map<String, Integer> gradeSelect(InputObject inputObject) {
+		Map<String, Integer> gradeCount = new HashMap<String, Integer>();
 		List<StudentInformation> result = dataBank;
-		result = getSemesterData(result, inputObject.getSemester());
-		result = getYearData(result, inputObject.getYear());
-		result = getCourseData(result, inputObject.getCourse());
-		return result;
+		if (inputObject.getSemester() != null) {
+			result = getSemesterData(result, inputObject.getSemester());
+		}
+		if (inputObject.getYear() != null) {
+			result = getYearData(result, inputObject.getYear());
+		}
+		if (inputObject.getCourse() != null) {
+			result = getCourseData(result, inputObject.getCourse());
+		}
+
+		int aCount = 0;
+		int bCount = 0;
+		int cCount = 0;
+		int dCount = 0;
+		int fCount = 0;
+		for (StudentInformation info : result) {
+			if (info.getLetterGrade().toLowerCase().contains("a")) {
+				aCount++;
+			} else if (info.getLetterGrade().toLowerCase().contains("b")) {
+				bCount++;
+			} else if (info.getLetterGrade().toLowerCase().contains("c")) {
+				cCount++;
+			} else if (info.getLetterGrade().toLowerCase().contains("d")) {
+				dCount++;
+			} else if (info.getLetterGrade().toLowerCase().contains("f")) {
+				fCount++;
+			}
+		}
+		gradeCount.put("A", aCount);
+		gradeCount.put("B", bCount);
+		gradeCount.put("C", cCount);
+		gradeCount.put("D", dCount);
+		gradeCount.put("F", fCount);
+		return gradeCount;
 	}
-	
+
 	private List<StudentInformation> getSemesterData(List<StudentInformation> data, String semester) {
 		List<StudentInformation> response = new ArrayList<StudentInformation>();
 		for (StudentInformation studentInformation : data) {
@@ -54,7 +87,7 @@ public class StudentRepository {
 		}
 		return response;
 	}
-	
+
 	private List<StudentInformation> getCourseData(List<StudentInformation> data, String course) {
 		List<StudentInformation> response = new ArrayList<StudentInformation>();
 		for (StudentInformation studentInformation : data) {

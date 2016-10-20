@@ -15,7 +15,7 @@ public class Main {
 				repository.addData(inputAdapter.addDataObject());
 				break;
 			case SAVE_DATA:
-				outputAdapter.exportData(repository.getStudentInformation(inputAdapter.getStudentId()));
+				outputAdapter.exportData(repository.getStudentInformation(inputAdapter.getStudentId()), inputAdapter.getFileName());
 				break;
 			case GRADE_SELECT:
 				System.out
